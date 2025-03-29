@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rehman's Calculator</title>
+    <style>
+        * { font-family: Arial, Helvetica, sans-serif; }
+        body { background-color: cadetblue; }
+        #body {
+            height: 380px; width: 250px; border: 2px solid white; display: flex;
+            justify-content: center; align-items: center; flex-direction: column;
+            background-color: black; border-radius: 10px; margin: auto; margin-top: 100px;
+        }
+        #display {
+            height: 50px; width: 210px; border: 2px solid white; border-radius: 10px;
+            background-color: aliceblue; color: aliceblue; font-size: 25px;
+            text-align: right; padding: 5px;
+        }
+        .bottom a {
+            height: 40px; width: 40px; border: 2px solid white; font-size: 28px;
+            font-weight: bold; color: white; margin: 5px; display: flex;
+            justify-content: center; align-items: center; border-radius: 6px; cursor: pointer;
+        }
+        .bottom a:hover { background-color: gray; }
+        #equal { background-color: brown; }
+        #equal:hover { background-color: rgb(118, 24, 24); box-shadow: 2px 3px 10px 6px; }
+        .btn { display: flex; flex-direction: row; color: white; padding: 3px;
+            justify-content: space-between; width: 100px; height: 10px; margin-top: 5px; margin-bottom: 5px;
+        }
+        .btn #off { height: 18px; width: 25px; border: 2px solid white; display: flex;
+            justify-content: center; align-items: center; cursor: pointer; border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wel"><h1>Welcome To Rehman's Calculator</h1></div>
+    <div id="body">
+        <input id="display" type="text" disabled>
+        <div class="btn"><a id="off" onclick="open1()">off</a><a id="on"></a></div>
+        <div class="bottom">
+            <div><a onclick="appendValue('1')">1</a><a onclick="appendValue('2')">2</a><a onclick="appendValue('3')">3</a><a onclick="appendValue('*')">*</a></div>
+            <div><a onclick="appendValue('4')">4</a><a onclick="appendValue('5')">5</a><a onclick="appendValue('6')">6</a><a onclick="appendValue('/')">/</a></div>
+            <div><a onclick="appendValue('7')">7</a><a onclick="appendValue('8')">8</a><a onclick="appendValue('9')">9</a><a onclick="appendValue('+')">+</a></div>
+            <div><a onclick="backspace()">x</a><a onclick="appendValue('0')">0</a><a onclick="appendValue('-')">-</a><a onclick="appendValue('%')">%</a></div>
+            <div><a onclick="appendValue('(')">(</a><a onclick="appendValue(')')">)</a><a onclick="clearDisplay()">C</a><a id="equal" onclick="calculate()">=</a></div>
+        </div>
+    </div>
+    <script>
+        function open1() {
+            let display = document.getElementById('display');
+            let offButton = document.getElementById('off');
+            let onIndicator = document.getElementById('on');
+            if (offButton.textContent == 'off') {
+                display.style.color = 'black';
+                offButton.textContent = 'on';
+                onIndicator.style.boxShadow = "1px 1px 6px 2px green";
+                onIndicator.style.border = "2px solid green";
+                onIndicator.style.backgroundColor = "green";
+                display.value = '';
+            } else {
+                display.style.color = 'aliceblue';
+                offButton.textContent = 'off';
+                onIndicator.style.boxShadow = "1px 1px 6px 2px red";
+                onIndicator.style.border = "2px solid red";
+                onIndicator.style.backgroundColor = "red";
+            }
+        }
+        function backspace() { let display = document.getElementById('display'); display.value = display.value.slice(0, -1); }
+        function appendValue(value) { document.getElementById('display').value += value; }
+        function clearDisplay() { document.getElementById('display').value = ''; document.getElementById('display').style.color = 'black'; }
+        function calculate() {
+            try { document.getElementById('display').value = eval(document.getElementById('display').value); }
+            catch (error) { document.getElementById('display').value = 'Error'; document.getElementById('display').style.color = 'red'; }
+        }
+    </script>
+</body>
+</html>
